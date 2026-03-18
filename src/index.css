@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+
+  --color-brand-red: #C1121F;
+  --color-brand-green: #0B7A3B;
+  --color-brand-accent: #22A559;
+  --color-brand-text-primary: #1A1A1A;
+  --color-brand-text-secondary: #666666;
+  --color-brand-bg-primary: #FFFFFF;
+  --color-brand-bg-secondary: #F5F5F5;
+  --color-brand-border: #E5E5E5;
+  
+  --radius-4xl: 2.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-brand-bg-primary text-brand-text-primary font-sans antialiased selection:bg-brand-red/20;
+  }
+  
+  /* Accessibility: Global keyboard focus ring */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-green ring-offset-2 ring-offset-brand-bg-primary transition-all duration-200;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20;
+  }
+  
+  .card-shadow {
+    @apply shadow-[0_8px_30px_rgb(0,0,0,0.04)];
+  }
+
+  /* Cinematic Button Micro-Interactions */
+  .btn-cinematic {
+    @apply relative overflow-hidden transition-all duration-500 will-change-transform;
+  }
+  .btn-cinematic::before {
+    content: '';
+    @apply absolute inset-0 bg-white/0 transition-colors duration-300 rounded-full;
+  }
+  .btn-cinematic:hover::before {
+    @apply bg-white/20;
+  }
+  .btn-cinematic:active {
+    @apply scale-95;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+  }
+
+  /* Cinematic Card Depth & Lift */
+  .card-cinematic {
+    @apply transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform;
+  }
+  .card-cinematic:hover {
+    @apply -translate-y-3 shadow-2xl shadow-black/15 scale-[1.02];
+  }
+
+  /* Core Transition Hardware Acceleration */
+  .cinematic-layer {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform, opacity, filter;
+  }
+}
